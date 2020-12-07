@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -28,41 +29,65 @@ public class getColum {
      * @return
      */
     public static void getColumn(String path) {
-        List<String> columnNames = new ArrayList<>();
-        List<String> columnTypes = new ArrayList<>();
+//        List<String> columnNames = new ArrayList<>();
+//        List<String> columnTypes = new ArrayList<>();
+
+//        List<Integer> sizes = new ArrayList<>();
+
+        List<AllTable> list = new ArrayList<>();
+
         List<String> columnComments = new ArrayList<>();
         Map<String, String> map = readFile(path);
-        Connection conn = getConnection(map.get("driverClassName"), map.get("url"), map.get("username"), map.get("password"));
+        Connection conn = null;
         PreparedStatement pStemt = null;
         ResultSet rs;
-        String tableSql = SQL + map.get("tableName");
-        try {
-            pStemt = conn.prepareStatement(tableSql);
-            ResultSetMetaData rsmd = pStemt.getMetaData();
-            int size = rsmd.getColumnCount();
-            for (int i = 0; i < size; i++) {
-                columnNames.add(rsmd.getColumnName(i + 1));
-                columnTypes.add(rsmd.getColumnTypeName(i + 1));
-            }
-            rs = pStemt.executeQuery("show full columns from " + map.get("tableName"));
-            while (rs.next()) {
-                columnComments.add(rs.getString("Comment"));
-            }
-        } catch (SQLException e) {
-            log.error("getColumnNames failure", e);
-        } finally {
-            if (pStemt != null) {
-                try {
-                    pStemt.close();
-                    closeConnection(conn);
-                } catch (SQLException e) {
-                    log.error("getColumnNames close pstem and connection failure", e);
+        List<String> tables = new ArrayList<>();
+        if (map.get("tableName").contains(",")) {
+            tables = Arrays.asList(map.get("tableName").split(","));
+        } else {
+            tables.add(map.get("tableName"));
+        }
+        for (String table : tables) {
+            try {
+                columnComments.clear();
+                List<TableDomain> tableDomainList = new ArrayList<>();
+                String tableSql = SQL + table;
+                conn = getConnection(map.get("driverClassName"), map.get("url"), map.get("username"), map.get("password"));
+                pStemt = conn.prepareStatement(tableSql);
+                ResultSetMetaData rsmd = pStemt.getMetaData();
+                int size = rsmd.getColumnCount();
+                rs = pStemt.executeQuery("show full columns from " + table);
+                while (rs.next()) {
+                    columnComments.add(rs.getString("Comment"));
+                }
+                for (int i = 0; i < size; i++) {
+                    TableDomain domain = new TableDomain();
+                    domain.setField(rsmd.getColumnName(i + 1));
+                    domain.setType(rsmd.getColumnTypeName(i + 1));
+                    domain.setSize(rsmd.getColumnDisplaySize(i + 1));
+                    domain.setDesc(columnComments.get(i));
+                    tableDomainList.add(domain);
+                }
+                AllTable all = new AllTable();
+                all.setTableName(table);
+                all.setTableDomainList(tableDomainList);
+                list.add(all);
+            } catch (SQLException e) {
+                log.error("getColumnNames failure", e);
+            } finally {
+                if (pStemt != null) {
+                    try {
+                        pStemt.close();
+                        closeConnection(conn);
+                    } catch (SQLException e) {
+                        log.error("getColumnNames close pstem and connection failure", e);
+                    }
                 }
             }
+            log.info("列描述---" + columnComments.toString());
+//            log.info("列名称---" + columnNames.toString());
+//            log.info("列类型---" + columnTypes.toString());
         }
-        log.info("列描述---" + columnComments.toString());
-        log.info("列名称---" + columnNames.toString());
-        log.info("列类型---" + columnTypes.toString());
-        generateTable(columnComments, columnNames, columnTypes, map.get("tableName"));
+        generateTable(list);
     }
 }
