@@ -105,7 +105,7 @@ public class generateUtil {
             sb.append("\r\n").append("\t");
             sb.append("<tr>");
             sb.append("\r\n").append("\t\t");
-            sb.append("<th colspan='4'>");
+            sb.append("<th colspan='5'>");
             sb.append(table.getTableName());
             sb.append("</th>");
             sb.append("</tr>");
@@ -119,6 +119,9 @@ public class generateUtil {
             sb.append("</th>");
             sb.append("<th>");
             sb.append("长度");
+            sb.append("</th>");
+            sb.append("<th>");
+            sb.append("是否可空");
             sb.append("</th>");
             sb.append("<th>");
             sb.append("描述");
@@ -135,6 +138,9 @@ public class generateUtil {
                 sb.append("</td>");
                 sb.append("<td>");
                 sb.append(t.getSize());
+                sb.append("</td>");
+                sb.append("<td>");
+                sb.append(t.getMust());
                 sb.append("</td>");
                 sb.append("<td>");
                 sb.append(t.getDesc());

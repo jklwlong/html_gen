@@ -82,34 +82,34 @@ font-size: 14px;
 </style>
 	<table id='mytable' cellspacing='0'
 	<tr>
-		<th colspan='4'>smt_role</th></tr><tr>
-		<th>字段名</th><th>类型</th><th>长度</th><th>描述</th></tr><tr>
-		<td>id</td><td>INT</td><td>11</td><td>主键角色id</td></tr><tr>
-		<td>name</td><td>VARCHAR</td><td>32</td><td>角色名称</td></tr><tr>
-		<td>description</td><td>VARCHAR</td><td>255</td><td>描述</td></tr><tr>
-		<td>create_time</td><td>DATETIME</td><td>19</td><td>创建时间</td></tr><tr>
-		<td>create_user</td><td>VARCHAR</td><td>32</td><td>创建人</td></tr></table><table id='mytable' cellspacing='0'
+		<th colspan='5'>smt_role</th></tr><tr>
+		<th>字段名</th><th>类型</th><th>长度</th><th>是否可空</th><th>描述</th></tr><tr>
+		<td>id</td><td>INT</td><td>11</td><td>NO</td><td>主键角色id</td></tr><tr>
+		<td>name</td><td>VARCHAR</td><td>32</td><td>NO</td><td>角色名称</td></tr><tr>
+		<td>description</td><td>VARCHAR</td><td>255</td><td>YES</td><td>描述</td></tr><tr>
+		<td>create_time</td><td>DATETIME</td><td>19</td><td>NO</td><td>创建时间</td></tr><tr>
+		<td>create_user</td><td>VARCHAR</td><td>32</td><td>NO</td><td>创建人</td></tr></table><table id='mytable' cellspacing='0'
 	<tr>
-		<th colspan='4'>smt_permission</th></tr><tr>
-		<th>字段名</th><th>类型</th><th>长度</th><th>描述</th></tr><tr>
-		<td>id</td><td>INT</td><td>11</td><td>唯一主键</td></tr><tr>
-		<td>parent_id</td><td>INT</td><td>11</td><td>上级id</td></tr><tr>
-		<td>name</td><td>VARCHAR</td><td>32</td><td>名称</td></tr><tr>
-		<td>type</td><td>VARCHAR</td><td>32</td><td>类型</td></tr><tr>
-		<td>icon</td><td>VARCHAR</td><td>32</td><td>图标</td></tr><tr>
-		<td>link</td><td>VARCHAR</td><td>128</td><td>页面地址</td></tr><tr>
-		<td>service_url</td><td>VARCHAR</td><td>128</td><td>服务地址</td></tr><tr>
-		<td>level</td><td>INT</td><td>11</td><td>层级</td></tr><tr>
-		<td>description</td><td>VARCHAR</td><td>255</td><td>描述</td></tr><tr>
-		<td>create_user</td><td>VARCHAR</td><td>32</td><td>创建人</td></tr><tr>
-		<td>update_user</td><td>VARCHAR</td><td>32</td><td>修改人</td></tr><tr>
-		<td>create_time</td><td>DATETIME</td><td>19</td><td>创建时间</td></tr><tr>
-		<td>update_time</td><td>DATETIME</td><td>19</td><td>修改时间</td></tr></table><table id='mytable' cellspacing='0'
+		<th colspan='5'>smt_permission</th></tr><tr>
+		<th>字段名</th><th>类型</th><th>长度</th><th>是否可空</th><th>描述</th></tr><tr>
+		<td>id</td><td>INT</td><td>11</td><td>NO</td><td>唯一主键</td></tr><tr>
+		<td>parent_id</td><td>INT</td><td>11</td><td>YES</td><td>上级id</td></tr><tr>
+		<td>name</td><td>VARCHAR</td><td>32</td><td>NO</td><td>名称</td></tr><tr>
+		<td>type</td><td>VARCHAR</td><td>32</td><td>NO</td><td>类型</td></tr><tr>
+		<td>icon</td><td>VARCHAR</td><td>32</td><td>YES</td><td>图标</td></tr><tr>
+		<td>link</td><td>VARCHAR</td><td>128</td><td>YES</td><td>页面地址</td></tr><tr>
+		<td>service_url</td><td>VARCHAR</td><td>128</td><td>YES</td><td>服务地址</td></tr><tr>
+		<td>level</td><td>INT</td><td>11</td><td>YES</td><td>层级</td></tr><tr>
+		<td>description</td><td>VARCHAR</td><td>255</td><td>YES</td><td>描述</td></tr><tr>
+		<td>create_user</td><td>VARCHAR</td><td>32</td><td>NO</td><td>创建人</td></tr><tr>
+		<td>update_user</td><td>VARCHAR</td><td>32</td><td>NO</td><td>修改人</td></tr><tr>
+		<td>create_time</td><td>DATETIME</td><td>19</td><td>NO</td><td>创建时间</td></tr><tr>
+		<td>update_time</td><td>DATETIME</td><td>19</td><td>NO</td><td>修改时间</td></tr></table><table id='mytable' cellspacing='0'
 	<tr>
-		<th colspan='4'>smt_user_role</th></tr><tr>
-		<th>字段名</th><th>类型</th><th>长度</th><th>描述</th></tr><tr>
-		<td>id</td><td>INT</td><td>11</td><td>唯一主键</td></tr><tr>
-		<td>role_id</td><td>INT</td><td>11</td><td>角色id</td></tr><tr>
-		<td>username</td><td>VARCHAR</td><td>32</td><td>用户名</td></tr><tr>
-		<td>create_time</td><td>DATETIME</td><td>19</td><td>创建时间</td></tr><tr>
-		<td>create_user</td><td>VARCHAR</td><td>32</td><td>创建人</td></tr></table>
+		<th colspan='5'>smt_user_role</th></tr><tr>
+		<th>字段名</th><th>类型</th><th>长度</th><th>是否可空</th><th>描述</th></tr><tr>
+		<td>id</td><td>INT</td><td>11</td><td>NO</td><td>唯一主键</td></tr><tr>
+		<td>role_id</td><td>INT</td><td>11</td><td>NO</td><td>角色id</td></tr><tr>
+		<td>username</td><td>VARCHAR</td><td>32</td><td>NO</td><td>用户名</td></tr><tr>
+		<td>create_time</td><td>DATETIME</td><td>19</td><td>NO</td><td>创建时间</td></tr><tr>
+		<td>create_user</td><td>VARCHAR</td><td>32</td><td>NO</td><td>创建人</td></tr></table>

@@ -9,6 +9,7 @@ public class TableDomain {
     private String type;
     private int size;
     private String desc;
+    private String must;
 
     public String getField() {
         return field;
@@ -40,5 +41,13 @@ public class TableDomain {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getMust() {
+        return must;
+    }
+
+    public void setMust(String must) {
+        this.must = must;
     }
 }

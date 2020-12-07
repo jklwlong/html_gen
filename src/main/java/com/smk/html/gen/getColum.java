@@ -37,6 +37,7 @@ public class getColum {
         List<AllTable> list = new ArrayList<>();
 
         List<String> columnComments = new ArrayList<>();
+        List<String> must = new ArrayList<>();
         Map<String, String> map = readFile(path);
         Connection conn = null;
         PreparedStatement pStemt = null;
@@ -50,6 +51,7 @@ public class getColum {
         for (String table : tables) {
             try {
                 columnComments.clear();
+                must.clear();
                 List<TableDomain> tableDomainList = new ArrayList<>();
                 String tableSql = SQL + table;
                 conn = getConnection(map.get("driverClassName"), map.get("url"), map.get("username"), map.get("password"));
@@ -59,6 +61,7 @@ public class getColum {
                 rs = pStemt.executeQuery("show full columns from " + table);
                 while (rs.next()) {
                     columnComments.add(rs.getString("Comment"));
+                    must.add(rs.getString("Null"));
                 }
                 for (int i = 0; i < size; i++) {
                     TableDomain domain = new TableDomain();
@@ -66,6 +69,7 @@ public class getColum {
                     domain.setType(rsmd.getColumnTypeName(i + 1));
                     domain.setSize(rsmd.getColumnDisplaySize(i + 1));
                     domain.setDesc(columnComments.get(i));
+                    domain.setMust(must.get(i));
                     tableDomainList.add(domain);
                 }
                 AllTable all = new AllTable();
